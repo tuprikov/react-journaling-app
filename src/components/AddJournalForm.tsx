@@ -48,61 +48,88 @@ const AddJournalForm = () => {
         reset()
     }
 
+    const openDialog = () => {
+        const dialog = document.getElementById(
+            'success_modal'
+        ) as HTMLDialogElement
+        dialog.showModal()
+    }
+
     return (
-        <form
-            className="flex flex-col gap-3"
-            onSubmit={handleSubmit(onFormSubmit)}
-        >
-            <label className="input group w-full">
-                Journal Title
-                <input
-                    type="text"
-                    className="grow"
-                    placeholder="Give your journal entry a title"
-                    {...register('title')}
-                />
-                {errors.title && (
-                    <span className="text-sm text-red-500">
-                        {errors.title.message}
+        <>
+            <dialog id="success_modal" className="modal">
+                <div className="modal-box">
+                    <h3 className="text-lg font-bold">Success!</h3>
+                    <p className="py-4">
+                        The journal entry has been saved successfully. You can
+                        view it in the Journal Entries tab.
+                    </p>
+                    <div className="modal-action">
+                        <form method="dialog">
+                            <button className="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
+            <form
+                className="flex flex-col gap-3"
+                onSubmit={handleSubmit(onFormSubmit)}
+            >
+                <label className="input group w-full">
+                    Journal Title
+                    <input
+                        type="text"
+                        className="grow"
+                        placeholder="Give your journal entry a title"
+                        {...register('title')}
+                    />
+                    {errors.title && (
+                        <span className="text-sm text-red-500">
+                            {errors.title.message}
+                        </span>
+                    )}
+                    <span className="badge badge-neutral badge-xs">
+                        Optional
                     </span>
-                )}
-                <span className="badge badge-neutral badge-xs">Optional</span>
-            </label>
-
-            <div className="flex flex-col">
-                <label htmlFor="emotions" className="form-control w-full">
-                    How are you feeling today?
                 </label>
-                <select
-                    id="emotions"
-                    className="select select-bordered w-full"
-                    {...register('emotion')}
-                >
-                    <option selected>Happy</option>
-                    <option>Neutral</option>
-                    <option>Sad</option>
-                </select>
-                {errors.emotion && (
+
+                <div className="flex flex-col">
+                    <label htmlFor="emotions" className="form-control w-full">
+                        How are you feeling today?
+                    </label>
+                    <select
+                        id="emotions"
+                        className="select select-bordered w-full"
+                        {...register('emotion')}
+                    >
+                        <option selected>Happy</option>
+                        <option>Neutral</option>
+                        <option>Sad</option>
+                    </select>
+                    {errors.emotion && (
+                        <span className="text-sm text-red-500">
+                            {errors.emotion.message}
+                        </span>
+                    )}
+                </div>
+
+                <textarea
+                    className="textarea textarea-bordered w-full"
+                    placeholder="Write something here..."
+                    rows={10}
+                    {...register('body')}
+                ></textarea>
+                {errors.body && (
                     <span className="text-sm text-red-500">
-                        {errors.emotion.message}
+                        {errors.body.message}
                     </span>
                 )}
-            </div>
 
-            <textarea
-                className="textarea textarea-bordered w-full"
-                placeholder="Write something here..."
-                rows={10}
-                {...register('body')}
-            ></textarea>
-            {errors.body && (
-                <span className="text-sm text-red-500">
-                    {errors.body.message}
-                </span>
-            )}
-
-            <button className="btn btn-primary">Save Journal</button>
-        </form>
+                <button className="btn btn-primary" onClick={openDialog}>
+                    Save Journal
+                </button>
+            </form>
+        </>
     )
 }
 
