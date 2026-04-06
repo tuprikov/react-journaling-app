@@ -5,6 +5,11 @@ import Tabs from './components/Tabs'
 
 const App = () => {
     const [currentTab, setCurrentTab] = useState('add')
+
+    const handleToggleTab = (selectedTab: string) => {
+        setCurrentTab(selectedTab)
+    }
+
     return (
         <div className="mx-auto flex w-[640px] flex-col py-4">
             <div className="flex flex-col gap-2 rounded-xl bg-white p-4">
@@ -20,7 +25,7 @@ const App = () => {
                 </header>
 
                 {/* Tabs */}
-                <Tabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
+                <Tabs onSelectTab={handleToggleTab} />
 
                 {/* Form */}
                 <div className="flex flex-col gap-3 rounded-xl bg-gray-200 p-4">
