@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Tabs from './components/Tabs'
+
 const App = () => {
     return (
         <div className="mx-auto flex w-[640px] flex-col py-4">
@@ -15,6 +17,7 @@ const App = () => {
                     </p>
                 </header>
                 {/* Tabs */}
+                <Tabs />
                 {/* Form */}
             </div>
         </div>
