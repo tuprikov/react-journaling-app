@@ -1,3 +1,4 @@
+import AddJournalForm from './components/AddJournalForm'
 import Tabs from './components/Tabs'
 
 const App = () => {
@@ -19,41 +20,7 @@ const App = () => {
                 <Tabs />
 
                 {/* Form */}
-                <form className="flex flex-col gap-3">
-                    <label className="input group w-full">
-                        Journal Title
-                        <input
-                            type="text"
-                            className="grow"
-                            placeholder="Give your journal entry a title"
-                        />
-                        <span className="badge badge-neutral badge-xs">
-                            Optional
-                        </span>
-                    </label>
-
-                    <div className="flex flex-col">
-                        <label className="form-control w-full">
-                            How are you feeling today?
-                        </label>
-                        <select
-                            defaultValue="Happy"
-                            className="select select-bordered w-full"
-                        >
-                            <option selected>Happy</option>
-                            <option>Neutral</option>
-                            <option>Sad</option>
-                        </select>
-                    </div>
-
-                    <textarea
-                        className="textarea textarea-bordered w-full"
-                        placeholder="Write something here..."
-                        rows={10}
-                    ></textarea>
-
-                    <button className="btn btn-primary">Save Journal</button>
-                </form>
+                <AddJournalForm />
             </div>
         </div>
     )
