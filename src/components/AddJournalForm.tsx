@@ -29,7 +29,22 @@ const AddJournalForm = () => {
     } = useForm<FormData>({ resolver: zodResolver(schema) })
 
     const onFormSubmit = (data: FieldValues) => {
-        console.log('Form submitted:', data)
+        const uuid = crypto.randomUUID()
+        data.id = uuid
+
+        const now = new Date()
+        data.createdAt = now.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        })
+
+        const hasJournals = localStorage.getItem('journals')
+        const journalEntries = hasJournals ? JSON.parse(hasJournals) : []
+
+        journalEntries.push(data)
+        localStorage.setItem('journals', JSON.stringify(journalEntries))
+
         reset()
     }
 
