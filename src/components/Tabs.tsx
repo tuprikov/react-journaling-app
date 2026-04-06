@@ -11,14 +11,14 @@ const Tabs = () => {
         <div role="tablist" className="tabs tabs-box tabs-sm">
             <a
                 role="tab"
-                className={`tab ${selectedTab === 'add' && 'tab-active font-bold'}`}
+                className={`tab flex-1 ${selectedTab === 'add' && 'tab-active font-bold'}`}
                 onClick={() => handleToggleTab('add')}
             >
                 Add Entry
             </a>
             <a
                 role="tab"
-                className={`tab ${selectedTab === 'entries' && 'tab-active font-bold'}`}
+                className={`tab flex-1 ${selectedTab === 'entries' && 'tab-active font-bold'}`}
                 onClick={() => handleToggleTab('entries')}
             >
                 Journal Entries
