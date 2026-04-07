@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { ImHappy2, ImNeutral2, ImSad2 } from 'react-icons/im'
 
 const JournalList = () => {
     useEffect(() => {
@@ -9,31 +10,86 @@ const JournalList = () => {
         console.log(journalEntries)
     }, [])
 
-    const [journals, setJournals] = useState([
-        {
-            id: '',
-            title: '',
-            emotion: '',
-            body: '',
-            createdAt: ''
-        }
-    ])
+    const initJournalState = {
+        id: '',
+        title: '',
+        emotion: '',
+        body: '',
+        createdAt: ''
+    }
+
+    const [journal, setJournal] = useState(initJournalState)
+
+    const [journals, setJournals] = useState([initJournalState])
+
+    const onViewJournal = (journal: {
+        id: string
+        title: string
+        emotion: string
+        body: string
+        createdAt: string
+    }) => {
+        setJournal(journal)
+        console.log(journal)
+    }
 
     return (
-        <div className="grid grid-cols-2 gap-4">
-            {journals.map(journal => (
-                <span
-                    className="rounded-lg bg-white p-4 transition duration-300 ease-in-out hover:scale-110 hover:cursor-pointer hover:shadow-xl"
-                    key={journal.id}
-                >
-                    <h3 className="font-playfair-display-bold mb-2 text-xl font-bold">
-                        {journal.title}
-                    </h3>
+        <>
+            {journals.length >= 1 && journal.id === '' && (
+                <div className="grid grid-cols-2 gap-4">
+                    {journals.map(journal => (
+                        <div
+                            className="rounded-lg bg-white p-4 transition duration-300 ease-in-out hover:scale-110 hover:cursor-pointer hover:shadow-xl"
+                            key={journal.id}
+                            onClick={() => onViewJournal(journal)}
+                        >
+                            <h3 className="font-playfair-display-bold mb-2 text-xl font-bold">
+                                {journal.title}
+                            </h3>
 
-                    <h4>Created at {journal.createdAt}</h4>
-                </span>
-            ))}
-        </div>
+                            <h4>Created on {journal.createdAt}</h4>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {journal.id != '' && (
+                <div className="relative flex max-h-[640px] flex-col overflow-y-scroll rounded-xl bg-white p-8">
+                    {journal.emotion == 'Sad' ? (
+                        <ImSad2
+                            size={128}
+                            className="absolute -top-3 -right-8 z-0 text-gray-200"
+                        />
+                    ) : journal.emotion == 'Happy' ? (
+                        <ImHappy2
+                            size={128}
+                            className="absolute -top-3 -right-8 z-0 text-gray-200"
+                        />
+                    ) : (
+                        <ImNeutral2
+                            size={128}
+                            className="absolute -top-3 -right-8 z-0 text-gray-200"
+                        />
+                    )}
+                    <h2 className="font-playfair-display-bold z-10 mb-2 text-4xl font-bold">
+                        {journal.title}
+                    </h2>
+                    <h3 className="mb-4 text-gray-500">
+                        Created on: {journal.createdAt}
+                    </h3>
+                    <p className="text-lg">{journal.body}</p>
+                    <div className="flex justify-between gap-2">
+                        <button className="btn mt-2 flex-1">Delete</button>
+                        <button
+                            className="btn btn-secondary mt-2 flex-1"
+                            onClick={() => setJournal(initJournalState)}
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
+        </>
     )
 }
 
