@@ -33,6 +33,13 @@ const JournalList = () => {
         console.log(journal)
     }
 
+    const deleteJournal = (id: string) => {
+        const updatedJournals = journals.filter(journal => journal.id !== id)
+        setJournals(updatedJournals)
+        localStorage.setItem('journals', JSON.stringify(updatedJournals))
+        setJournal(initJournalState)
+    }
+
     return (
         <>
             {journals.length >= 1 && journal.id === '' && (
@@ -50,6 +57,12 @@ const JournalList = () => {
                             <h4>Created on {journal.createdAt}</h4>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {journals.length === 0 && (
+                <div className="w-full rounded-xl bg-white p-3 text-center font-medium">
+                    There are no published journal entries yet.
                 </div>
             )}
 
@@ -79,7 +92,12 @@ const JournalList = () => {
                     </h3>
                     <p className="text-lg">{journal.body}</p>
                     <div className="flex justify-between gap-2">
-                        <button className="btn mt-2 flex-1">Delete</button>
+                        <button
+                            className="btn mt-2 flex-1"
+                            onClick={() => deleteJournal(journal.id)}
+                        >
+                            Delete
+                        </button>
                         <button
                             className="btn btn-secondary mt-2 flex-1"
                             onClick={() => setJournal(initJournalState)}

@@ -102,7 +102,7 @@ const AddJournalForm = () => {
                         className="select select-bordered w-full"
                         {...register('emotion')}
                     >
-                        <option selected>Happy</option>
+                        <option>Happy</option>
                         <option>Neutral</option>
                         <option>Sad</option>
                     </select>
